@@ -8,29 +8,37 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+MSclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of SigProfiler package suite can be found in :
+https://osf.io/t6j7u/wiki/home/
+https://osf.io/s93d5/wiki/home/
 
 ```
-Give examples
+pip install SigProfilerMatrixGenerator
+pip install sigproextractor
+
+from SigProfilerMatrixGenerator import install as genInstall
+genInstall.install('GRCh37', bash=True)
 ```
+MSclassifier uses plotly to produce graphics and scikit to train a neural network.
+
+```
+pip install plotly==4.6.0
+pip install -U scikit-learn
+
+```
+
+Further support on the installation of plotly can be found in:
+https://pypi.org/project/plotly/
+
+
+
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+MSclassifier is currently available as a test python package in the pypi repository. To install use the following command:
 
 ```
-Give the example
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MSclassifier
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
