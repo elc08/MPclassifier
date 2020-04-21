@@ -119,7 +119,7 @@ def test (mut_class):
         fig =fig.add_trace(go.Scatter(
             x=[-1.5, 1.5],
             y=[mut_class.model.margin,mut_class.model.margin],
-            name='Margin maximization',
+            name='Margin',
             mode='lines',
             line=dict(color='orange', width=3, dash='dash')
             ))
@@ -170,7 +170,7 @@ def plot_regression (mut_class):
     fig =fig.add_trace(go.Scatter(
             x=[0, max(plot['counter'])],
             y=[mut_class.model.margin,mut_class.model.margin],
-            name='Margin maximization',
+            name='Margin',
             mode='lines',
             line=dict(color='orange', width=3, dash='dash')
             ))
@@ -193,7 +193,7 @@ def plot_confusion (mut_class):
 def ROC(mut_class):
     from sklearn.metrics import roc_curve, auc
     y_true=mut_class.data[mut_class.data['Sample type']!= 'Unknown'].replace({'Deficient': 1, 'Proficient': 0})['Sample type']
-    y_score=mut_class.data[mut_class.data['Sample type']!= 'Unknown'].replace({'Deficient': 1, 'Proficient': 0})['SVM prediction']
+    y_score=mut_class.data[mut_class.data['Sample type']!= 'Unknown']['prediction']
 
     fpr, tpr, thresholds = roc_curve(y_true, y_score)
     roc_auc = auc(fpr, tpr)
