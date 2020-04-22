@@ -64,31 +64,31 @@ Parameters:
    
     path to a folder containing the all .vcf files.
 
-- positive : str , Default = None
+- positive : str , Default = `None`
     
     path to a .txt file containing the list of all positive samples.
 
-- negative : str , Default = None
+- negative : str , Default = `None`
     
     path to a .txt file containing the list of all negative samples.
 
-- project_name : str , Default = 'MSclassifier'
+- project_name : str , Default = `'MSclassifier'`
     
     Project name that will be used for referencing throughout the project.
 
-- model :  signature_model class, Default=None
+- model :  signature_model class, Default=`None`
 
     Model used to train or predict the output of the classifier.
     
-- reference_genome : str in {‘GRCh38’, ‘GRCh37’,'GRCm38','GRCm37'} , Default = 'GRCh38'
+- reference_genome : str in `{‘GRCh38’, ‘GRCh37’,'GRCm38','GRCm37'}` , Default = `'GRCh38'`
     
     Genome reference used during the process of variant calling. reference_genome is only used as an argument for SigProfilerMatrixFunc, therefore admits all supported genomes in the package
 
-- exome : boolean, Default = False
+- exome : boolean, Default = `False`
     
     option to filter vcf files to only retain variant calls present in the exome
 
-- feature_list : list, Default = ['SBS96','ID83','DBS78']
+- feature_list : list, Default = `['SBS96','ID83','DBS78']`
         
     List of any mutational profile in the output of SigProfilerMatrixFunc. These are the features that will be used to train the classifier.
     
@@ -104,7 +104,7 @@ After training, this model will acquire further attributes:
 
 - confusion_matrix: 
 
-    Confusion matrix as computed by sklearn.metrics
+    Confusion matrix as computed by `sklearn.metrics.confusion_matrix`
    
 - ROC_curve: plotly.fig
 
@@ -122,7 +122,7 @@ Although this class starts empty, depending on the developped classifier, after 
 
 - signatures : list
 
-    List of datasets. Each dataset corresponds to the extracted panel of signatures used for nmf fitting.
+    List of pandas.DataFrames. Each dataframe corresponds to the extracted panel of signatures used for nmf fitting.
     
 - features: list
  
@@ -130,17 +130,20 @@ Although this class starts empty, depending on the developped classifier, after 
     
 - classifier: class
 
-    Trained model. As trained by default, *model* is a scikit MLPRegressor class. 
+    Trained model. As trained by default, *model* is a `sklearn.neural_network.MLPRegressor`. 
 
 - svm: class
     
-    Trained scikit linear SVC class.
+    Trained `sklearn.svm.SVC` class.
     
 - margin: float
 
-    Margin maximizer extracted using linear SVM.
+    Margin maximizer.
     
-- 
+- importances: pandas.DataFrame
+
+
+    Model importances as extracted by `sklearn.inspection.permutation_importance`
 
 
 ## Authors
