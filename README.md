@@ -52,7 +52,7 @@ A notebook including everything needed to get a project up and runing has been i
 
 [notebook-example](https://github.com/elc08/MSclassifier/blob/master/Introduction%20to%20MSclassifier.ipynb)
 
-### MSclassifier object
+### MSclassifier.signature_classifier object
 
 ```
 class MSclassifier.signature_classifier : (vcf, positive=None, negative=None, project_name='MSclassifier', reference_genome='GRCh38', exome=False, feature_list=['SBS96','ID83','DBS78'], model = signature_model()):
@@ -88,9 +88,59 @@ Parameters:
     
     option to filter vcf files to only retain variant calls present in the exome
 
-feature_list : list, Default = ['SBS96','ID83','DBS78']
+- feature_list : list, Default = ['SBS96','ID83','DBS78']
         
     List of any mutational profile in the output of SigProfilerMatrixFunc. These are the features that will be used to train the classifier.
+    
+After training, this model will acquire further attributes:
+
+- data : pandas.DataFrame
+
+    Data used for training the classifier, together with the both predictions: regression and classification.
+    
+- plot : plotly.fig
+
+     Plot of the regression prediction together with the margin maximizer
+
+- confusion_matrix: 
+
+    Confusion matrix as computed by sklearn.metrics
+   
+- ROC_curve: plotly.fig
+
+    Plot of the ROC curve of our regression model.
+    
+    
+### MSclassifier.signature_model object
+
+In order to share an MSclassifier trained model, a signature_model class has been created. This class contains information about signatures used for training and the model used for training. 
+
+```
+class MSclassifier.signature_classifier : ()
+```
+Although this class starts empty, depending on the developped classifier, after training this class will acquire the following attributes:
+
+- signatures : list
+
+    List of datasets. Each dataset corresponds to the extracted panel of signatures used for nmf fitting.
+    
+- features: list
+ 
+    List of features used in the model.
+    
+- classifier: class
+
+    Trained model. As trained by default, *model* is a scikit MLPRegressor class. 
+
+- svm: class
+    
+    Trained scikit linear SVC class.
+    
+- margin: float
+
+    Margin maximizer extracted using linear SVM.
+    
+- 
 
 
 ## Authors
