@@ -1,15 +1,22 @@
 # MSclassifier
 
-MSclassifier is a python package that automatizes the creation of a classifier based on mutational signatures. Although this package was originaly developped to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MSclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a neural network together with a classification margin that can be easily exported to fit new data.
+MSclassifier is a python package that automatizes the development of a classifier based on mutational signatures. Although this package was originaly developped to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MSclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a neural network together with a classification margin that can be easily exported and shared to fit and predict new data.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### Installing MSclassifier
+MSclassifier is currently available as a test python package in the pypi repository. To install use the following command:
+
+```
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MSclassifier
+```
 
 ### Prerequisites
 
 MSclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of SigProfiler package suite can be found in :
+
 https://osf.io/t6j7u/wiki/home/
+
 https://osf.io/s93d5/wiki/home/
 
 ```
@@ -17,7 +24,7 @@ pip install SigProfilerMatrixGenerator
 pip install sigproextractor
 
 from SigProfilerMatrixGenerator import install as genInstall
-genInstall.install('GRCh37', bash=True)
+genInstall.install('GRCh38', bash=True)
 ```
 MSclassifier uses plotly to produce graphics and scikit to train a neural network.
 
@@ -30,19 +37,24 @@ pip install -U scikit-learn
 Further support on the installation of plotly can be found in:
 https://pypi.org/project/plotly/
 
+Further standard package prerequisits include:
+  - pandas
+  - numpy
+  - scipy
 
 
 
-### Installing
-MSclassifier is currently available as a test python package in the pypi repository. To install use the following command:
+## Overview of MSclassifier
+
+MSclassifier relies on the detection of mutational signatures, that carry the footprint of mutational events found in the genomes, to train a grid of shallow regressor neural networks and produce a threshold for classification. 
+
+### MSclassifier object
 
 ```
-python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MSclassifier
+class MSclassifier.linear_model.LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=None)
 ```
 
-## Running the tests
 
-Explain how to run the automated tests for this system
 
 ### Break down into end to end tests
 
