@@ -55,34 +55,41 @@ A notebook including everything needed to get a project up and runing has been i
 ### MSclassifier object
 
 ```
-class MSclassifier.signature_classifier : (vcf, positive=None, negative=None, project_name='MSclassifier', reference_genome='GRCh38', exome=False, feature_list=['SBS96','ID83','DBS78'],model = signature_model()):
+class MSclassifier.signature_classifier : (vcf, positive=None, negative=None, project_name='MSclassifier', reference_genome='GRCh38', exome=False, feature_list=['SBS96','ID83','DBS78'], model = signature_model()):
 ```
 
 Parameters:
 
 - vcf : str
+   
     path to a folder containing the all .vcf files.
 
 - positive : str , Default = None
+    
     path to a .txt file containing the list of all positive samples.
 
 - negative : str , Default = None
+    
     path to a .txt file containing the list of all negative samples.
 
 - project_name : str , Default = 'MSclassifier'
+    
     Project name that will be used for referencing throughout the project.
 
 - model :  signature_model class, Default=None
+
     Model used to train or predict the output of the classifier.
     
 - reference_genome : str in {‘GRCh38’, ‘GRCh37’,'GRCm38','GRCm37'} , Default = 'GRCh38'
-    Genome reference used during the process of variant calling. reference_genome is only
-    used as an argument for SigProfilerMatrixFunc, therefore admits all supported genomes in the package
+    
+    Genome reference used during the process of variant calling. reference_genome is only used as an argument for SigProfilerMatrixFunc, therefore admits all supported genomes in the package
 
 - exome : boolean, Default = False
+    
     option to filter vcf files to only retain variant calls present in the exome
 
 feature_list : list, Default = ['SBS96','ID83','DBS78']
+        
     List of any mutational profile in the output of SigProfilerMatrixFunc. These are the features that will be used to train the classifier.
 
 
