@@ -148,4 +148,4 @@ Although this class starts empty, depending on the developped classifier, after 
 
 ## Authors
 
-**Eric Latorre Crespo** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+**Eric Latorre Crespo** - *Initial work*
