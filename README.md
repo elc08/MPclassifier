@@ -50,7 +50,7 @@ MSclassifier relies on the detection of mutational signatures, that carry the fo
 
 A notebook including everything needed to get a project up and runing has been included.
 
-[notebook-example](https://github.com/elc08/MSclassifier/blob/master/Introduction%20to%20MSclassifier.ipynb)
+[notebook-example](https://nbviewer.jupyter.org/github/elc08/MSclassifier/blob/master/Introduction%20to%20MSclassifier.ipynb)
 
 ### MSclassifier.signature_classifier object
 
