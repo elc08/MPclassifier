@@ -1,6 +1,6 @@
 # MSclassifier
 
-MSclassifier is a python package that automatizes the development of a classifier based on mutational signatures. Although this package was originaly developped to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MSclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a neural network together with a classification margin that can be easily exported and shared to fit and predict new data.
+MSclassifier is a python package that automatizes the development of a classifier based on mutational signatures. Although this package was originaly developped to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MSclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a regression prediction together with a classification margin that can be easily exported and shared to fit and predict new data.
 
 ## Getting Started
 
