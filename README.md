@@ -13,7 +13,7 @@ python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MScla
 
 ### Prerequisites
 
-MSclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of SigProfiler package suite can be found in :
+MSclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of the SigProfiler package suite can be found in :
 
 https://osf.io/t6j7u/wiki/home/
 
@@ -37,7 +37,7 @@ pip install -U scikit-learn
 Further support on the installation of plotly can be found in:
 https://pypi.org/project/plotly/
 
-Further standard package prerequisits include:
+Further standard package prerequisites include:
   - pandas
   - numpy
   - scipy
@@ -48,7 +48,7 @@ Further standard package prerequisits include:
 
 MSclassifier relies on the detection of mutational signatures, that carry the footprint of mutational events found in the genomes, to train a grid of shallow regressor neural networks and produce a threshold for classification. 
 
-A notebook including everything needed to get a project up and runing has been included.
+A notebook including everything needed to get a project up and running has been included.
 
 [notebook-example](https://nbviewer.jupyter.org/github/elc08/MSclassifier/blob/master/Introduction%20to%20MSclassifier.ipynb)
 
@@ -118,7 +118,7 @@ In order to share an MSclassifier trained model, a signature_model class has bee
 ```
 class MSclassifier.signature_classifier : ()
 ```
-Although this class starts empty, depending on the developped classifier, after training this class will acquire the following attributes:
+Although this class starts empty, depending on the developed classifier, after training this class will acquire the following attributes:
 
 - signatures : list
 
