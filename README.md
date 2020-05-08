@@ -1,19 +1,19 @@
-# MSclassifier
+# MPclassifier
 
-MSclassifier is a python package that automatizes the development of a classifier based on mutational signatures. Although this package was originaly developed to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MSclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a regression prediction together with a classification margin that can be easily exported and shared to fit and predict new data.
+MPclassifier is a python package that automatizes the development of a classifier based on mutational profiles. Although this package was originaly developed to predict the Homologous Recombination (HR) status of high grade serous ovarian cancer (HGSOC), its applications extend far beyond. MPclassifier simplifies the process of extracting mutational signatures and training a neural network to produce a regression prediction together with a classification margin that can be easily exported and shared to fit and predict new data.
 
 ## Getting Started
 
-### Installing MSclassifier
-MSclassifier is currently available as a test python package in the pypi repository. To install use the following command:
+### Installing MPclassifier
+MPclassifier is currently available as a test python package in the pypi repository. To install use the following command:
 
 ```
-python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MSclassifier
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps MPclassifier
 ```
 
 ### Prerequisites
 
-MSclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of the SigProfiler package suite can be found in :
+MPclassifier relies on SigProfiler to create mutational matrices and extract mutational signatures. Both packages together with the apropriate reference genome need to be installed. The details on the installation and the full functionality of the SigProfiler package suite can be found in :
 
 https://osf.io/t6j7u/wiki/home/
 
@@ -26,7 +26,7 @@ pip install sigproextractor
 from SigProfilerMatrixGenerator import install as genInstall
 genInstall.install('GRCh38', bash=True)
 ```
-MSclassifier uses plotly to produce graphics and scikit to train a neural network.
+MPclassifier uses plotly to produce graphics and scikit to train a neural network.
 
 ```
 pip install plotly==4.6.0
@@ -44,18 +44,18 @@ Further standard package prerequisites include:
 
 
 
-## Overview of MSclassifier
+## Overview of MPclassifier
 
-MSclassifier relies on the detection of mutational signatures, that carry the footprint of mutational events found in the genomes, to train a grid of shallow regressor neural networks and produce a threshold for classification. 
+MPclassifier relies on the detection of mutational signatures, that carry the footprint of mutational events found in the genomes, to train a grid of shallow regressor neural networks and produce a threshold for classification. 
 
 A notebook including everything needed to get a project up and running has been included.
 
-[notebook-example](https://nbviewer.jupyter.org/github/elc08/MSclassifier/blob/master/Introduction%20to%20MSclassifier.ipynb)
+[notebook-example](https://nbviewer.jupyter.org/github/elc08/MPclassifier/blob/master/Introduction%20to%20MPclassifier.ipynb)
 
-### MSclassifier.signature_classifier object
+### MPclassifier.signature_classifier object
 
 ```
-class MSclassifier.signature_classifier : (vcf, positive=None, negative=None, project_name='MSclassifier', reference_genome='GRCh38', exome=False, feature_list=['SBS96','ID83','DBS78'], model = signature_model()):
+class MPclassifier.signature_classifier : (vcf, positive=None, negative=None, project_name='MPclassifier', reference_genome='GRCh38', exome=False, feature_list=['SBS96','ID83','DBS78'], model = signature_model()):
 ```
 
 Parameters:
