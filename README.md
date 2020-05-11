@@ -111,12 +111,12 @@ After training, this model will acquire further attributes:
     Plot of the ROC curve of our regression model.
     
     
-### MSclassifier.signature_model object
+### MPclassifier.signature_model object
 
-In order to share an MSclassifier trained model, a signature_model class has been created. This class contains information about signatures used for training and the model used for training. 
+In order to share an MPclassifier trained model, a signature_model class has been created. This class contains information about signatures used for training and the model used for training. 
 
 ```
-class MSclassifier.signature_classifier : ()
+class MPclassifier.signature_classifier : ()
 ```
 Although this class starts empty, depending on the developed classifier, after training this class will acquire the following attributes:
 
