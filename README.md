@@ -66,11 +66,11 @@ Parameters:
 
 - positive : str , Default = `None`
     
-    path to a .txt file containing the list of all positive samples.
+    path to a .txt file containing the list of all positive samples. The .txt file should contain one sample name per line.
 
 - negative : str , Default = `None`
     
-    path to a .txt file containing the list of all negative samples.
+    path to a .txt file containing the list of all negative samples. The .txt file should contain one sample name per line.
 
 - project_name : str , Default = `'MSclassifier'`
     
