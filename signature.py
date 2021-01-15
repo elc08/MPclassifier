@@ -6,45 +6,50 @@ Created on Thu Mar 26 13:34:08 2020
 @author: elatorre
 """
 import pandas as pd
-import numpy as np
 import random
 
-def train (mut_class, ratio, end):
+from sigproextractor import sigpro as sig
+from scipy.optimize import nnls
+from sklearn import preprocessing
+
+
+def train(mut_class, ratio, end):
     random.seed(123)
-    from sigproextractor import sigpro as sig
-    end_name ='.exome' if mut_class.exome ==True else '.all'
+
+    end_name = '.exome' if mut_class.exome is True else '.all'
 
     # restart training counter to 0 (needed in case you retrain a dataset)
-    mut_class.data['training']=0
-    #Locate deficient and proficient samples and select a random fraction using ratio
-    training_def=pd.DataFrame(mut_class.data[(mut_class.data['Sample type']=='Deficient')].sample(frac=ratio,random_state=1)['sample'])
-    training_pro=pd.DataFrame(mut_class.data[(mut_class.data['Sample type']=='Proficient')].sample(frac=ratio,random_state=1)['sample'])
+    mut_class.data['training'] = 0
+
+    # Locate deficient and proficient samples and select a random fraction using ratio
+    training_def = pd.DataFrame(mut_class.data[(mut_class.data['Sample type']=='Deficient')].sample(frac=ratio,random_state=1)['sample'])
+    training_pro = pd.DataFrame(mut_class.data[(mut_class.data['Sample type']=='Proficient')].sample(frac=ratio,random_state=1)['sample'])
 
     # Modify data.training column to 1 for all samples used for training
     mut_class.data.loc[mut_class.data['sample'].isin(training_def['sample']),'training']=1
     mut_class.data.loc[mut_class.data['sample'].isin(training_pro['sample']),'training']=1
 
     # Create 2 lists containing the names of all samples in the deficient and proficient training sets
-    training_prof=list(mut_class.data[(mut_class.data.training==1) & (mut_class.data['Sample type']=='Proficient')]['sample'])
-    training_def=list(mut_class.data[(mut_class.data.training==1) & (mut_class.data['Sample type']=='Deficient')]['sample'])
+    training_prof = list(mut_class.data[(mut_class.data.training==1) & (mut_class.data['Sample type']=='Proficient')]['sample'])
+    training_def = list(mut_class.data[(mut_class.data.training==1) & (mut_class.data['Sample type']=='Deficient')]['sample'])
 
     # Given the count matrix of all samples and a list of samples to subset
     # This functions creates the matrix of all samples in the subset.
-    def split_train(path,samples):
-        matrix=pd.read_csv( path ,sep='\t')
-        train=pd.DataFrame(matrix['MutationType'])
+    def split_train(path, samples):
+        matrix = pd.read_csv(path, sep='\t')
+        train = pd.DataFrame(matrix['MutationType'])
 
         for sample in samples:
-            train[sample]=matrix.filter(like=sample)
-        return train;
+            train[sample] = matrix.filter(like=sample)
+        return train
 
     # Extract the matrix of mutations for both proficient and deficient samples and merge
     signatures_all = []
-    features=[]
+    features = []
     for feature in mut_class.feature_list:
         # Create the path to the mutations matrix
         feature_mut = ''.join([i for i in feature if not i.isdigit()])
-        feature_path=mut_class.vcf+'output/'+feature_mut+ '/' + mut_class.project_name+'.'+ feature+ end_name
+        feature_path = mut_class.vcf+'output/'+feature_mut+ '/' + mut_class.project_name+'.'+ feature+ end_name
 
         # Retrieve the samples for training for a mutation matrix
         matrix_train_prof=split_train(feature_path, training_prof)
@@ -59,9 +64,11 @@ def train (mut_class, ratio, end):
         sig.sigProfilerExtractor("table", mut_class.vcf+'/output/'+feature_mut+ "/signatures_prof", path_to_matrix_train_prof, endProcess=end)
         sig.sigProfilerExtractor("table", mut_class.vcf+'/output/'+feature_mut+ "/signatures_def", path_to_matrix_train_def, endProcess=end)
 
-        feature2=feature
-        if feature_mut=='ID': feature2='SBSINDEL'
-        if feature_mut == 'DBS': feature2 = 'SBSDINUC'
+        feature2 = feature
+        if feature_mut == 'ID':
+            feature2 = 'SBSINDEL'
+        if feature_mut == 'DBS':
+            feature2 = 'SBSDINUC'
 
         path_to_prof_signatures = mut_class.vcf+'/output/'+feature_mut+ "/signatures_prof/"+feature+'/Suggested_Solution/De_Novo_Solution/De_Novo_Solution_Signatures_' + feature2+'.txt'
         path_to_def_signatures = mut_class.vcf+'/output/'+feature_mut+ "/signatures_def/"+feature+'/Suggested_Solution/De_Novo_Solution/De_Novo_Solution_Signatures_' + feature2+'.txt'
@@ -88,18 +95,16 @@ def train (mut_class, ratio, end):
     return signatures_all , features
 
 def fit(mut_class):
-    from scipy.optimize import nnls
-    from sklearn import preprocessing
 
-    end_name ='.exome' if mut_class.exome ==True else '.all'
+    end_name = '.exome' if mut_class.exome is True else '.all'
 
     # drop colums from the dataset if they are already present to prevent duplication of features
     mut_class.data = mut_class.data.drop([value for value in mut_class.data.columns if value in mut_class.model.features], axis=1)
 
     # fit the extracted signatures for each sample in the data
-    for index,signatures in enumerate(mut_class.model.signatures):
+    for index, signatures in enumerate(mut_class.model.signatures):
         # load a signatures matrix
-        signatures= signatures.set_index('MutationsType')
+        signatures = signatures.set_index('MutationsType')
 
         # Extract the feature name and its associated signatures' names
         feature= signatures.columns[1].split('_')[0]
@@ -111,7 +116,7 @@ def fit(mut_class):
 
         projection= pd.DataFrame(0, index=matrix.columns, columns=signatures.columns)
         for col in matrix.columns:
-            coef=nnls(signatures,matrix[col])[0]
+            coef = nnls(signatures,matrix[col])[0]
             projection.loc[col]=preprocessing.scale(coef)
 
         mut_class.data=pd.merge(mut_class.data,projection,left_on='sample',right_index=True)
